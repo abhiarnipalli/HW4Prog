@@ -1,14 +1,12 @@
 //
 // Created by Abhlash Arnipalli on 5/2/23.
 //
-#include <iostream>
+
 #include <vector>
 #include <utility>
-#include <fstream>
 using namespace std;
 
 pair< vector<float>, vector<int> >  WWWWW(vector<float> w, vector<float> p , int s, int t){
-
 
 
     int j = w.size() - 1; // number of questions
@@ -65,6 +63,8 @@ pair< vector<float>, vector<int> >  WWWWW(vector<float> w, vector<float> p , int
 
 
 
+
+//BONUS1
 pair< vector< vector<float> > , vector< vector<int> > >  WWWWW_1(vector<float> w, vector<float> p, int s, int t)
 {
     vector < vector<float> > fres;
@@ -85,6 +85,8 @@ pair< vector< vector<float> > , vector< vector<int> > >  WWWWW_1(vector<float> w
     return make_pair(fres, fres2);
 }
 
+
+//BONUS2
 pair< vector< vector<float> > , vector< vector<int> > >  WWWWW_2(vector<float> w, vector<float> p, int s, int t)
 {
     vector < vector<float> > fres;
