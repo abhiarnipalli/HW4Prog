@@ -1,72 +1,58 @@
-//
-// Created by Abhlash Arnipalli on 5/2/23.
-//
 
+
+#include <algorithm>
+#include <iostream>
 #include <vector>
 #include <utility>
+#include <cmath>
 using namespace std;
 
-pair< vector<float>, vector<int>>  WWWWW(vector<float> w, vector<float> p , int s, int t)
+
+
+pair< vector<float>, vector<int> > WWWWW(vector<float> w, vector<float> p , int s, int t)
 {
-    int j = w.size() - 1;
-    vector<vector<float>> dp(j + 1, vector<float>(j + 1, 0.0));
-    vector<vector<int>> path(j + 1, vector<int>(j + 1, 0));
-
-    // Fill in the base cases for the DP matrix
-    for (int i = 0; i <= s; i++) {
-        dp[i][0] = 0.0;
-        path[i][0] = 0;
-    }
-    for (int i = s + 1; i <= t; i++) {
-        dp[i][0] = w[i - 1];
-        path[i][0] = i - 1;
-    }
-    for (int i = t + 1; i <= j; i++) {
-        dp[i][0] = w[t];
-        path[i][0] = t;
+    int j = w.size() ;
+    vector<float> winnings(j + 1);
+    vector<int> quit(j + 1);
+    for(int i = 0; i < quit.size(); i++){
+        quit[i] = 1;
     }
 
-    // Use Floyd Warshall to fill in the DP matrix
-    for (int k = 0; k <= j; k++) {
-        for (int i = 1; i <= j; i++) {
-            for (int l = s; l < i; l++) {
-                float value = p[i] * (w[i] + dp[l][k]) + (1.0 - p[i]) * dp[i][0];
-                if (value > dp[i][k + 1]) {
-                    dp[i][k + 1] = value;
-                    path[i][k + 1] = l;
-                }
-            }
-            if (dp[i][k + 1] < dp[i][k]) {
-                dp[i][k + 1] = dp[i][k];
-                path[i][k + 1] = path[i][k];
-            }
+    for (int k = j; k >= 0; k--) {
+        float q;
+        if (k <= 5){
+            q = 0;
+        }
+        else if (k <= 10){
+            q = w[5];
+        }
+        else {
+            q = w[10];
+        }
+
+        cout << "Values: " << k << " - " << w[k] << " - " << p[k] << " - " << winnings[k + 1] << " - " << q << endl;
+        float win_by_quitting = w[k - 1]; // calculate win by quitting
+        float win_by_answering = p[k] * winnings[k + 1] + (1 - p[k]) * q; // calculate win by answering
+
+        if (k == j){
+            winnings[k] = win_by_quitting;
+        }
+        else if (win_by_quitting > win_by_answering) {
+            winnings[k] = win_by_quitting;
+            quit[k] = 0;
+        }
+        else {
+            winnings[k] = win_by_answering;
+
         }
     }
 
-    // Calculate the expected amount of money won
-    vector<float> money_Won(j + 1, 0.0);
-    for (int k = 0; k <= j; k++) {
-        for (int i = s; i <= t; i++) {
-            if (dp[i][k] > money_Won[k]) {
-                money_Won[k] = dp[i][k];
-            }
-        }
+    if (winnings[0] == 0) {
+        winnings.erase(winnings.begin());
+        quit.erase(quit.begin());
     }
 
-    // Calculate the quit/not-quit decision for each question
-    vector<int> decision(j + 1, 0);
-    int curr = j;
-    for (int k = j; k >= 1; k--) {
-        if (path[curr][k] < s) {
-            break;
-        }
-        if (path[curr][k] < t || curr == t) {
-            decision[curr - 1] = 1;
-        }
-        curr = path[curr][k];
-    }
-
-    return make_pair(money_Won, decision);
+    return {winnings, quit};
 }
 
 
