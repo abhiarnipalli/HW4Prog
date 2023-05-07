@@ -1,5 +1,3 @@
-
-
 #include <algorithm>
 #include <iostream>
 #include <vector>
@@ -7,18 +5,15 @@
 #include <cmath>
 using namespace std;
 
-
-
 pair< vector<float>, vector<int> > WWWWW(vector<float> w, vector<float> p , int s, int t)
 {
-    int j = w.size() ;
+    int j = w.size();
     vector<float> winnings(j + 1);
     vector<int> quit(j + 1);
     for(int i = 0; i < quit.size(); i++){
         quit[i] = 1;
     }
-
-    for (int k = j; k >= 0; k--) {
+    for (int k = j; k > 0; k--) {
         float q;
         if (k <= 5){
             q = 0;
@@ -54,13 +49,6 @@ pair< vector<float>, vector<int> > WWWWW(vector<float> w, vector<float> p , int 
 
     return {winnings, quit};
 }
-
-
-
-
-
-
-
 
 
 
@@ -113,9 +101,6 @@ pair< vector< vector<float> > , vector< vector<int> > >  WWWWW_1(vector<float> w
     }
     return make_pair(a, b);
 }
-
-
-
 
 
 
