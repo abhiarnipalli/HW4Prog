@@ -21,11 +21,4 @@ For the base case, the rules are as follows.
 - For question k, we will assume the contestant has a probability of pk of answering that question
 correctly. (0.25 ≤ pk < 1)
 
-# Task
 
-You are to implement the following function:
-pair< vector<float>, vector<int> > WWWWW(vector<float> w, vector<float> p, int s, int t)
-
-This program will return a pair of vectors:
-- The first vector contains the expected amount of money won. The i-th entry stores the expected amount of money won after the contestant answer i questions correctly.
-- The second vector stores 0 or 1 The (i-1)-th entry stores whether the contestant should quit when he face question i (recall there is no question 0). You must use the dynamic programming algorithm discussed.
